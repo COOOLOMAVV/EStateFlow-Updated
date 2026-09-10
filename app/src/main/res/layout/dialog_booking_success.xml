@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="24dp"
+    android:gravity="center_horizontal">
+
+    <!-- Success icon -->
+    <TextView
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="✅"
+        android:textSize="32sp"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Viewing Booked!"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-bold"
+        android:textColor="#1C1C1E"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/txtBookingSuccessSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="13sp"
+        android:textColor="#555555"
+        android:lineSpacingExtra="4dp"
+        android:layout_marginBottom="24dp"
+        android:text="Your appointment has been confirmed." />
+
+    <!-- Appointment summary card -->
+    <com.google.android.material.card.MaterialCardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#F8F7F3"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#E8E4DC"
+        app:strokeWidth="1dp"
+        android:layout_marginBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/txtSuccessProperty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-bold"
+                android:textColor="#2D6A4F"
+                android:textSize="13sp"
+                android:text="Cozy Family Townhouse" />
+
+            <TextView
+                android:id="@+id/txtSuccessDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="#1C1C1E"
+                android:textSize="13sp"
+                android:text="Mon, Oct 14 • 1:30 PM" />
+
+            <TextView
+                android:id="@+id/txtSuccessClient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="#555555"
+                android:textSize="12sp"
+                android:text="You (Verified Buyer)" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSuccessDone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:backgroundTint="#2D6A4F"
+        android:text="Done"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif-bold" />
+
+</LinearLayout>

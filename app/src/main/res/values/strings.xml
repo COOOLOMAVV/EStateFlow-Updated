@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">EStateFlow</string>
+    <string name="greeting_user">Welcome back, Alex 👋</string>
+    <string name="current_location">Beverly Hills, CA</string>
+    <string name="search_hint">Search houses, apartments, villas…</string>
+    <string name="section_popular">Popular Properties</string>
+    <string name="action_see_all">See All</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_explore">Explore</string>
+    <string name="nav_saved">Saved</string>
+    <string name="nav_messages">Messages</string>
+    <string name="nav_profile">Profile</string>
+    <string name="unit_per_month">/mo</string>
+</resources>
