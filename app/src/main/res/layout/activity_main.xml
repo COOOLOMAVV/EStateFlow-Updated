@@ -152,8 +152,9 @@
                     android:src="@drawable/ic_notifications"
                     tools:ignore="ContentDescription" />
 
-                <!-- Red Badge Circle "2" -->
+                <!-- Red Badge Circle -->
                 <TextView
+                    android:id="@+id/txtNotificationBadge"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_gravity="top|end"
@@ -414,6 +415,7 @@
                     android:textSize="11sp" />
 
                 <TextView
+                    android:id="@+id/txtInboxBadge"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginStart="6dp"
@@ -805,16 +807,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:padding="16dp">
+                android:paddingStart="16dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="12dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="📅 Appointments"
-                    android:textSize="20sp"
-                    android:fontFamily="sans-serif-bold"
-                    android:textColor="#1C1C1E" />
+                    android:text="Appointments"
+                    android:textSize="22sp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/text_primary" />
             </LinearLayout>
 
             <TextView
@@ -824,8 +829,9 @@
                 android:gravity="center"
                 android:padding="32dp"
                 android:text="No appointments yet"
-                android:textColor="#AAAAAA"
+                android:textColor="@color/text_muted"
                 android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -850,25 +856,40 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:padding="16dp">
+                android:paddingStart="16dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="12dp">
+
+                <ImageView
+                    android:id="@+id/btnBackFromNotifications"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_close"
+                    android:padding="6dp"
+                    android:background="@drawable/bg_icon_button"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="Close notifications" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="🔔 Notifications"
-                    android:textSize="20sp"
-                    android:fontFamily="sans-serif-bold"
-                    android:textColor="#1C1C1E" />
+                    android:text="Notifications"
+                    android:textSize="22sp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/text_primary" />
 
                 <TextView
                     android:id="@+id/btnMarkAllRead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:text="Mark All Read"
-                    android:textColor="#2D6A4F"
+                    android:textColor="@color/primary_green"
                     android:textSize="13sp"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="sans-serif-bold"
                     android:padding="6dp" />
             </LinearLayout>
 
@@ -879,8 +900,9 @@
                 android:gravity="center"
                 android:padding="32dp"
                 android:text="No notifications"
-                android:textColor="#AAAAAA"
+                android:textColor="@color/text_muted"
                 android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -908,11 +930,10 @@
 
                 <!-- Agent header card -->
                 <com.google.android.material.card.MaterialCardView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="#2D6A4F"
-                    app:cardCornerRadius="16dp"
+                    app:cardBackgroundColor="@color/primary_green"
+                    app:cardCornerRadius="18dp"
                     app:cardElevation="2dp"
                     android:layout_marginBottom="16dp">
 
@@ -943,7 +964,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Sarah Jenkins"
-                                android:textColor="#FFFFFF"
+                                android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:fontFamily="sans-serif-bold" />
 
@@ -952,8 +973,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Premier Real Estate Agent"
-                                android:textColor="#AAFFCC"
+                                android:textColor="@color/primary_green_muted"
                                 android:textSize="12sp"
+                                android:fontFamily="sans-serif"
                                 android:layout_marginTop="2dp" />
 
                             <TextView
@@ -961,8 +983,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="RE-94821-BC"
-                                android:textColor="#CCEECC"
+                                android:textColor="@color/white"
                                 android:textSize="11sp"
+                                android:fontFamily="sans-serif"
                                 android:layout_marginTop="2dp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -977,14 +1000,15 @@
                     android:layout_marginBottom="16dp">
 
                     <com.google.android.material.card.MaterialCardView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="6dp"
-                        app:cardCornerRadius="12dp"
+                        app:cardCornerRadius="16dp"
                         app:cardElevation="1dp"
-                        app:cardBackgroundColor="#F8F7F3">
+                        app:strokeColor="@color/border_subtle"
+                        app:strokeWidth="1dp"
+                        app:cardBackgroundColor="@color/surface_card">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -997,27 +1021,29 @@
                                 android:layout_height="wrap_content"
                                 android:text="5"
                                 android:textSize="22sp"
-                                android:fontFamily="sans-serif-bold"
-                                android:textColor="#2D6A4F" />
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="@color/primary_green" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Listings"
                                 android:textSize="11sp"
-                                android:textColor="#888888" />
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/text_muted" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="6dp"
-                        android:layout_marginEnd="6dp"
-                        app:cardCornerRadius="12dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        app:cardCornerRadius="16dp"
                         app:cardElevation="1dp"
-                        app:cardBackgroundColor="#F8F7F3">
+                        app:strokeColor="@color/border_subtle"
+                        app:strokeWidth="1dp"
+                        app:cardBackgroundColor="@color/surface_card">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -1030,26 +1056,28 @@
                                 android:layout_height="wrap_content"
                                 android:text="4"
                                 android:textSize="22sp"
-                                android:fontFamily="sans-serif-bold"
-                                android:textColor="#2D6A4F" />
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="@color/primary_green" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Viewings"
                                 android:textSize="11sp"
-                                android:textColor="#888888" />
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/text_muted" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="6dp"
-                        app:cardCornerRadius="12dp"
+                        app:cardCornerRadius="16dp"
                         app:cardElevation="1dp"
-                        app:cardBackgroundColor="#F8F7F3">
+                        app:strokeColor="@color/border_subtle"
+                        app:strokeWidth="1dp"
+                        app:cardBackgroundColor="@color/surface_card">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -1062,14 +1090,15 @@
                                 android:layout_height="wrap_content"
                                 android:text="3"
                                 android:textSize="22sp"
-                                android:fontFamily="sans-serif-bold"
-                                android:textColor="#2D6A4F" />
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="@color/primary_green" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Inquiries"
                                 android:textSize="11sp"
-                                android:textColor="#888888" />
+                                android:fontFamily="sans-serif-medium"
+                                android:textColor="@color/text_muted" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
@@ -1077,37 +1106,48 @@
                 <!-- Add listing button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAddProperty"
+                    style="@style/Widget.Material3.Button"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:backgroundTint="#2D6A4F"
+                    android:layout_height="52dp"
+                    app:backgroundTint="@color/primary_green"
+                    app:cornerRadius="14dp"
                     android:text="＋  Add New Listing"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:textSize="15sp"
                     android:fontFamily="sans-serif-bold"
                     android:layout_marginBottom="16dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDashViewCalendar"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="match_parent"
-                    android:layout_height="46dp"
-                    android:text="📅  View Appointment Calendar"
+                    android:layout_height="48dp"
+                    app:strokeColor="@color/border_subtle"
+                    android:textColor="@color/text_primary"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="View Appointment Calendar"
                     android:layout_marginBottom="10dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDashViewMessages"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="match_parent"
-                    android:layout_height="46dp"
-                    android:text="💬  View Client Inquiries"
+                    android:layout_height="48dp"
+                    app:strokeColor="@color/border_subtle"
+                    android:textColor="@color/text_primary"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="View Client Inquiries"
                     android:layout_marginBottom="10dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDashViewListings"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="match_parent"
-                    android:layout_height="46dp"
-                    android:text="🏡  Edit Active Listings"
+                    android:layout_height="48dp"
+                    app:strokeColor="@color/border_subtle"
+                    android:textColor="@color/text_primary"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Edit Active Listings"
                     android:layout_marginBottom="10dp" />
 
             </LinearLayout>

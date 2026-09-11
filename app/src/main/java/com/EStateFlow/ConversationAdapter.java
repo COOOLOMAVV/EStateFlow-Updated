@@ -48,13 +48,14 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         holder.txtTimeAgo.setText(inquiry.getTimeAgo());
 
         // Unread indicator
+        android.content.Context context = holder.itemView.getContext();
         if (holder.viewUnreadDot != null) {
             holder.viewUnreadDot.setVisibility(inquiry.isUnread() ? View.VISIBLE : View.GONE);
         }
         if (holder.txtSenderName != null) {
             holder.txtSenderName.setTextColor(inquiry.isUnread()
-                    ? Color.parseColor("#1C1C1E")
-                    : Color.parseColor("#555555"));
+                    ? androidx.core.content.ContextCompat.getColor(context, R.color.text_primary)
+                    : androidx.core.content.ContextCompat.getColor(context, R.color.text_secondary));
         }
 
         holder.itemView.setOnClickListener(v -> listener.onClick(inquiry));

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:background="@color/bg_page">
 
     <!-- Chat top bar -->
     <LinearLayout
@@ -13,15 +14,18 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="16dp"
-        android:background="#F8F7F3">
+        android:background="@color/surface_card"
+        android:elevation="1dp">
 
         <ImageView
             android:id="@+id/btnCloseChat"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:src="@drawable/ic_close"
-            android:padding="4dp"
-            android:layout_marginEnd="12dp" />
+            android:padding="7dp"
+            android:background="@drawable/bg_icon_button"
+            android:layout_marginEnd="12dp"
+            android:contentDescription="Close chat" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -34,19 +38,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-bold"
-                android:textColor="#1C1C1E"
-                android:textSize="15sp"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
                 android:text="Marcus Aurelius" />
 
             <TextView
                 android:id="@+id/txtChatPropertyTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#2D6A4F"
+                android:textColor="@color/primary_green"
+                android:fontFamily="sans-serif-medium"
                 android:textSize="12sp"
                 android:text="Cozy Family Townhouse" />
         </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
 
     <!-- Messages list -->
     <androidx.recyclerview.widget.RecyclerView
@@ -62,7 +72,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#E8E4DC" />
+        android:background="@color/divider" />
 
     <!-- Message input area -->
     <LinearLayout
@@ -71,7 +81,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="12dp"
-        android:background="#FFFFFF">
+        android:background="@color/surface_card">
 
         <EditText
             android:id="@+id/edtChatMessage"
@@ -80,10 +90,11 @@
             android:layout_weight="1"
             android:hint="Type a message..."
             android:textSize="14sp"
-            android:textColor="#1C1C1E"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_muted"
             android:inputType="textMultiLine"
             android:maxLines="4"
-            android:minHeight="44dp"
+            android:minHeight="46dp"
             android:background="@drawable/bg_search_bar"
             android:paddingStart="14dp"
             android:paddingEnd="14dp"
@@ -93,12 +104,13 @@
 
         <ImageButton
             android:id="@+id/btnSendChatMessage"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
             android:src="@drawable/ic_chat"
             android:background="@drawable/bg_chip_selected"
-            android:backgroundTint="#2D6A4F"
-            android:padding="10dp"
+            app:backgroundTint="@color/primary_green"
+            android:padding="11dp"
+            android:scaleType="fitCenter"
             android:contentDescription="Send" />
     </LinearLayout>
 

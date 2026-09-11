@@ -1,97 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="#FFFFFF"
-    android:padding="24dp"
-    android:gravity="center_horizontal">
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
+    app:cardBackgroundColor="@color/surface_card"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="6dp">
 
-    <!-- Success icon -->
-    <TextView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:gravity="center"
-        android:text="✅"
-        android:textSize="32sp"
-        android:layout_marginBottom="12dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Viewing Booked!"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-bold"
-        android:textColor="#1C1C1E"
-        android:layout_marginBottom="8dp" />
-
-    <TextView
-        android:id="@+id/txtBookingSuccessSummary"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="13sp"
-        android:textColor="#555555"
-        android:lineSpacingExtra="4dp"
-        android:layout_marginBottom="24dp"
-        android:text="Your appointment has been confirmed." />
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
-    <!-- Appointment summary card -->
-    <com.google.android.material.card.MaterialCardView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="#F8F7F3"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
-        app:strokeColor="#E8E4DC"
-        app:strokeWidth="1dp"
-        android:layout_marginBottom="24dp">
+        <!-- Success icon badge -->
+        <FrameLayout
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/bg_avatar_circle"
+            android:backgroundTint="@color/primary_green_container"
+            android:layout_marginBottom="14dp">
 
-        <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="✓"
+                android:textColor="@color/primary_green"
+                android:fontFamily="sans-serif-black"
+                android:textSize="28sp" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Viewing Booked!"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:id="@+id/txtBookingSuccessSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:gravity="center"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/text_secondary"
+            android:lineSpacingExtra="2dp"
+            android:layout_marginBottom="20dp"
+            android:text="Your appointment has been confirmed. You'll receive a reminder." />
 
-            <TextView
-                android:id="@+id/txtSuccessProperty"
-                android:layout_width="wrap_content"
+        <!-- Appointment summary card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/bg_page"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/border_subtle"
+            app:strokeWidth="1dp"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-bold"
-                android:textColor="#2D6A4F"
-                android:textSize="13sp"
-                android:text="Cozy Family Townhouse" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <TextView
-                android:id="@+id/txtSuccessDateTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:textColor="#1C1C1E"
-                android:textSize="13sp"
-                android:text="Mon, Oct 14 • 1:30 PM" />
+                <TextView
+                    android:id="@+id/txtSuccessProperty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-bold"
+                    android:textColor="@color/primary_green"
+                    android:textSize="14sp"
+                    android:text="Cozy Family Townhouse" />
 
-            <TextView
-                android:id="@+id/txtSuccessClient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="#555555"
-                android:textSize="12sp"
-                android:text="You (Verified Buyer)" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/txtSuccessDateTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Mon, Oct 14 • 1:30 PM" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSuccessDone"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:backgroundTint="#2D6A4F"
-        android:text="Done"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:fontFamily="sans-serif-bold" />
+                <TextView
+                    android:id="@+id/txtSuccessClient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/text_muted"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif"
+                    android:text="You (Verified Buyer)" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-</LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSuccessDone"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            app:backgroundTint="@color/primary_green"
+            app:cornerRadius="14dp"
+            android:text="Done"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-bold" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtRoleBadge;
     private View btnToggleRole;
     private View btnNotifications;
+    private TextView txtNotificationBadge;
     private View locationContainer;
 
     // ─── Tab Views ─────────────────────────────────────────────────────────────
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     // ─── Inbox Tab ─────────────────────────────────────────────────────────────
     private RecyclerView recyclerConversations;
+    private TextView txtInboxBadge;
 
     // ─── Calendar Tab ──────────────────────────────────────────────────────────
     private RecyclerView recyclerAppointments;
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerNotifications;
     private TextView txtNotificationsEmpty;
     private TextView btnMarkAllRead;
+    private View btnBackFromNotifications;
 
     // ─── Profile Tab ───────────────────────────────────────────────────────────
     private SwitchMaterial switchAgentMode;
@@ -176,10 +179,11 @@ public class MainActivity extends AppCompatActivity {
     // ═══════════════════════════════════════════════════════════════════════════
 
     private void initViews() {
-        txtRoleBadge      = findViewById(R.id.txtRoleBadge);
-        btnToggleRole     = findViewById(R.id.btnToggleRole);
-        btnNotifications  = findViewById(R.id.btnNotifications);
-        locationContainer = findViewById(R.id.locationContainer);
+        txtRoleBadge         = findViewById(R.id.txtRoleBadge);
+        btnToggleRole        = findViewById(R.id.btnToggleRole);
+        btnNotifications     = findViewById(R.id.btnNotifications);
+        txtNotificationBadge = findViewById(R.id.txtNotificationBadge);
+        locationContainer    = findViewById(R.id.locationContainer);
 
         tabExploreView         = findViewById(R.id.tabExploreView);
         tabSavedView           = findViewById(R.id.tabSavedView);
@@ -202,13 +206,15 @@ public class MainActivity extends AppCompatActivity {
         txtSavedEmpty           = findViewById(R.id.txtSavedEmpty);
 
         recyclerConversations = findViewById(R.id.recyclerConversations);
+        txtInboxBadge         = findViewById(R.id.txtInboxBadge);
 
         recyclerAppointments = findViewById(R.id.recyclerAppointments);
         txtCalendarEmpty     = findViewById(R.id.txtCalendarEmpty);
 
-        recyclerNotifications   = findViewById(R.id.recyclerNotifications);
-        txtNotificationsEmpty   = findViewById(R.id.txtNotificationsEmpty);
-        btnMarkAllRead          = findViewById(R.id.btnMarkAllRead);
+        recyclerNotifications    = findViewById(R.id.recyclerNotifications);
+        txtNotificationsEmpty    = findViewById(R.id.txtNotificationsEmpty);
+        btnMarkAllRead           = findViewById(R.id.btnMarkAllRead);
+        btnBackFromNotifications = findViewById(R.id.btnBackFromNotifications);
 
         switchAgentMode      = findViewById(R.id.switchAgentMode);
         txtProfileSavedCount = findViewById(R.id.txtProfileSavedCount);
@@ -289,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
         conversationAdapter = new ConversationAdapter(repository.getInquiries(), inquiry -> {
             inquiry.setUnread(false);
             conversationAdapter.notifyDataSetChanged();
+            updateInboxBadge();
             showChatDialog(inquiry);
         });
         recyclerConversations.setLayoutManager(new LinearLayoutManager(this));
@@ -361,9 +368,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Notifications bell — navigate to notifications tab
         btnNotifications.setOnClickListener(v -> {
+            refreshNotificationsTab();
             showTab(tabNotificationsView);
-            bottomNav.setSelectedItemId(R.id.nav_notifications);
         });
+
+        if (btnBackFromNotifications != null) {
+            btnBackFromNotifications.setOnClickListener(v -> {
+                showTab(tabExploreView);
+                bottomNav.setSelectedItemId(R.id.nav_explore);
+            });
+        }
 
         // Location dropdown
         locationContainer.setOnClickListener(v ->
@@ -418,31 +432,24 @@ public class MainActivity extends AppCompatActivity {
                 bottomNav.setSelectedItemId(R.id.nav_explore);
             });
 
-        // Bottom Navigation Tab Switching (ported from ES Old Screen enum navigation)
+        // Bottom Navigation Tab Switching (5 Material 3 destinations)
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_explore) {
                 showTab(tabExploreView);
                 return true;
-            } else if (id == R.id.nav_search) {
-                showTab(tabExploreView);
-                edtSearch.requestFocus();
-                return true;
             } else if (id == R.id.nav_saved) {
                 filterSavedProperties();
                 showTab(tabSavedView);
-                return true;
-            } else if (id == R.id.nav_inbox) {
-                conversationAdapter.notifyDataSetChanged();
-                showTab(tabInboxView);
                 return true;
             } else if (id == R.id.nav_calendar) {
                 refreshCalendarTab();
                 showTab(tabCalendarView);
                 return true;
-            } else if (id == R.id.nav_notifications) {
-                refreshNotificationsTab();
-                showTab(tabNotificationsView);
+            } else if (id == R.id.nav_inbox) {
+                conversationAdapter.notifyDataSetChanged();
+                updateInboxBadge();
+                showTab(tabInboxView);
                 return true;
             } else if (id == R.id.nav_profile) {
                 if (isAgentMode) {
@@ -464,6 +471,8 @@ public class MainActivity extends AppCompatActivity {
     private void refreshAllData() {
         filterExploreProperties();
         updateSavedBadgeAndCount();
+        updateNotificationBadge();
+        updateInboxBadge();
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -622,6 +631,7 @@ public class MainActivity extends AppCompatActivity {
     private void markNotificationAsRead(String id) {
         repository.markNotificationAsRead(id);
         notificationAdapter.notifyListChanged();
+        updateNotificationBadge();
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -631,7 +641,46 @@ public class MainActivity extends AppCompatActivity {
     private void markAllNotificationsAsRead() {
         repository.markAllNotificationsAsRead();
         notificationAdapter.notifyListChanged();
+        updateNotificationBadge();
         Toast.makeText(this, "All notifications marked as read", Toast.LENGTH_SHORT).show();
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // updateNotificationBadge / updateInboxBadge
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    private void updateNotificationBadge() {
+        int unreadCount = 0;
+        for (NotificationItem item : repository.getNotifications()) {
+            if (!item.isRead()) {
+                unreadCount++;
+            }
+        }
+        if (txtNotificationBadge != null) {
+            if (unreadCount > 0) {
+                txtNotificationBadge.setVisibility(View.VISIBLE);
+                txtNotificationBadge.setText(String.valueOf(unreadCount));
+            } else {
+                txtNotificationBadge.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void updateInboxBadge() {
+        int unreadCount = 0;
+        for (Inquiry inquiry : repository.getInquiries()) {
+            if (inquiry.isUnread()) {
+                unreadCount++;
+            }
+        }
+        if (txtInboxBadge != null) {
+            if (unreadCount > 0) {
+                txtInboxBadge.setVisibility(View.VISIBLE);
+                txtInboxBadge.setText(String.valueOf(unreadCount));
+            } else {
+                txtInboxBadge.setVisibility(View.GONE);
+            }
+        }
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -880,6 +929,7 @@ public class MainActivity extends AppCompatActivity {
         );
         showBookingSuccessDialog(appt);
         refreshCalendarTab();
+        updateNotificationBadge();
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -954,6 +1004,8 @@ public class MainActivity extends AppCompatActivity {
     private void submitInquiry(String propertyId, String message) {
         Inquiry inq = repository.sendInquiry(propertyId, message);
         conversationAdapter.notifyDataSetChanged();
+        updateInboxBadge();
+        updateNotificationBadge();
         Toast.makeText(this, "Inquiry sent to " + (selectedProperty != null ? selectedProperty.getAgentName() : "Agent"), Toast.LENGTH_SHORT).show();
         // Navigate to inbox and open chat
         showTab(tabInboxView);
@@ -1109,6 +1161,7 @@ public class MainActivity extends AppCompatActivity {
                 beds, baths, sqft, propertyType, description, amenities);
         filterExploreProperties();
         refreshAgentDashboard();
+        updateNotificationBadge();
         Toast.makeText(this, "\"" + title + "\" published!", Toast.LENGTH_SHORT).show();
     }
 

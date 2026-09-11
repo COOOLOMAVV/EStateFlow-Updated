@@ -46,14 +46,15 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         holder.txtApptNotes.setText(appt.getNotes());
 
         // Status badge
+        android.content.Context context = holder.itemView.getContext();
         String statusLabel;
         int statusColor;
         switch (appt.getStatus()) {
-            case UPCOMING:   statusLabel = "Upcoming";  statusColor = Color.parseColor("#2D6A4F"); break;
-            case COMPLETED:  statusLabel = "Completed"; statusColor = Color.parseColor("#888888"); break;
-            case CANCELLED:  statusLabel = "Cancelled"; statusColor = Color.parseColor("#C0392B"); break;
-            case PENDING:    statusLabel = "Pending";   statusColor = Color.parseColor("#E67E22"); break;
-            default:         statusLabel = "Unknown";   statusColor = Color.GRAY;
+            case UPCOMING:   statusLabel = "Upcoming";  statusColor = androidx.core.content.ContextCompat.getColor(context, R.color.primary_green); break;
+            case COMPLETED:  statusLabel = "Completed"; statusColor = androidx.core.content.ContextCompat.getColor(context, R.color.text_muted); break;
+            case CANCELLED:  statusLabel = "Cancelled"; statusColor = androidx.core.content.ContextCompat.getColor(context, R.color.badge_red); break;
+            case PENDING:    statusLabel = "Pending";   statusColor = androidx.core.content.ContextCompat.getColor(context, R.color.rating_amber); break;
+            default:         statusLabel = "Unknown";   statusColor = androidx.core.content.ContextCompat.getColor(context, R.color.text_muted);
         }
         holder.txtApptStatus.setText(statusLabel);
         holder.txtApptStatus.setTextColor(statusColor);

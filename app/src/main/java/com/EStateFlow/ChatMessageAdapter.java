@@ -1,5 +1,6 @@
 package com.EStateFlow;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -32,6 +34,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ChatMessage msg = messages.get(position);
+        Context context = holder.itemView.getContext();
 
         holder.txtMessageText.setText(msg.getText());
         holder.txtMessageTime.setText(msg.getTime());
@@ -39,17 +42,17 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.bubbleContainer.getLayoutParams();
 
         if (msg.isFromMe()) {
-            // Right-aligned — agent/me
+            // Right-aligned — agent / me
             params.gravity = Gravity.END;
-            holder.bubbleContainer.setBackgroundColor(Color.parseColor("#2D6A4F"));
+            holder.bubbleContainer.setBackgroundResource(R.drawable.bg_chat_bubble_me);
             holder.txtMessageText.setTextColor(Color.WHITE);
-            holder.txtMessageTime.setTextColor(Color.parseColor("#AAFFCC"));
+            holder.txtMessageTime.setTextColor(ContextCompat.getColor(context, R.color.primary_green_muted));
         } else {
             // Left-aligned — client
             params.gravity = Gravity.START;
-            holder.bubbleContainer.setBackgroundColor(Color.parseColor("#F5F5F0"));
-            holder.txtMessageText.setTextColor(Color.parseColor("#1C1C1E"));
-            holder.txtMessageTime.setTextColor(Color.parseColor("#888888"));
+            holder.bubbleContainer.setBackgroundResource(R.drawable.bg_chat_bubble_other);
+            holder.txtMessageText.setTextColor(ContextCompat.getColor(context, R.color.text_primary));
+            holder.txtMessageTime.setTextColor(ContextCompat.getColor(context, R.color.text_muted));
         }
         holder.bubbleContainer.setLayoutParams(params);
     }

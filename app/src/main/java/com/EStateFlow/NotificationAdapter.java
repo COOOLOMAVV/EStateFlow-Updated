@@ -1,13 +1,16 @@
 package com.EStateFlow;
 
-import android.graphics.Color;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -36,18 +39,21 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         NotificationItem notif = notifications.get(position);
+        Context context = holder.itemView.getContext();
 
         holder.txtNotifTitle.setText(notif.getTitle());
         holder.txtNotifMessage.setText(notif.getMessage());
         holder.txtNotifTime.setText(notif.getTimestampFormatted());
 
-        // Unread indicator
+        // Unread indicator and card surface styling
         if (!notif.isRead()) {
             holder.viewUnreadDot.setVisibility(View.VISIBLE);
-            holder.itemView.setBackgroundColor(Color.parseColor("#F0FAF4"));
+            holder.cardNotification.setCardBackgroundColor(ContextCompat.getColor(context, R.color.primary_green_container));
+            holder.cardNotification.setStrokeColor(ContextCompat.getColor(context, R.color.accent_role_border));
         } else {
             holder.viewUnreadDot.setVisibility(View.GONE);
-            holder.itemView.setBackgroundColor(Color.WHITE);
+            holder.cardNotification.setCardBackgroundColor(ContextCompat.getColor(context, R.color.surface_card));
+            holder.cardNotification.setStrokeColor(ContextCompat.getColor(context, R.color.border_subtle));
         }
 
         // Type icon emoji
@@ -70,11 +76,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void notifyListChanged() { notifyDataSetChanged(); }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        MaterialCardView cardNotification;
         TextView txtNotifIcon, txtNotifTitle, txtNotifMessage, txtNotifTime;
         View viewUnreadDot;
 
         ViewHolder(View itemView) {
             super(itemView);
+            cardNotification = (MaterialCardView) itemView;
             txtNotifIcon    = itemView.findViewById(R.id.txtNotifIcon);
             txtNotifTitle   = itemView.findViewById(R.id.txtNotifTitle);
             txtNotifMessage = itemView.findViewById(R.id.txtNotifMessage);

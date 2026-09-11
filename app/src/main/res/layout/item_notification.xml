@@ -3,15 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardNotification"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
-    android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="#FFFFFF"
-    app:cardCornerRadius="14dp"
+    android:layout_marginBottom="10dp"
+    app:cardBackgroundColor="@color/surface_card"
+    app:cardCornerRadius="16dp"
     app:cardElevation="1dp"
-    app:strokeColor="#E8E4DC"
+    app:strokeColor="@color/border_subtle"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -21,11 +22,11 @@
         android:padding="14dp"
         android:gravity="center_vertical">
 
-        <!-- Type icon (emoji in TextView) -->
+        <!-- Type icon (emoji in TextView circle) -->
         <TextView
             android:id="@+id/txtNotifIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:gravity="center"
             android:textSize="20sp"
             android:background="@drawable/bg_avatar_circle"
@@ -44,8 +45,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-bold"
-                android:textColor="#1C1C1E"
-                android:textSize="13sp"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
                 tools:text="Viewing Scheduled" />
 
             <TextView
@@ -53,8 +54,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:textColor="#555555"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/text_secondary"
                 android:textSize="12sp"
+                android:lineSpacingExtra="1dp"
                 android:maxLines="2"
                 android:ellipsize="end"
                 tools:text="John Doe booked a viewing for 439 East 14th Ave on Mon, Oct 14 at 1:30 PM." />
@@ -64,7 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="#AAAAAA"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/text_muted"
                 android:textSize="11sp"
                 tools:text="10 mins ago" />
         </LinearLayout>
@@ -76,7 +80,7 @@
             android:layout_height="8dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/bg_icon_button"
-            android:backgroundTint="#2D6A4F"
+            android:backgroundTint="@color/primary_green"
             android:visibility="gone" />
 
     </LinearLayout>
